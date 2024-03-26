@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameStatus.GameOver:
+                GameOverUpdate();
                 break;
 
         }
