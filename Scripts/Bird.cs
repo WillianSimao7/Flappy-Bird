@@ -6,11 +6,14 @@ public class Bird : MonoBehaviour
 {
     public Rigidbody2D rig;
     public float jumpForce;
+
+    private Vector3 startPosition;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        startPosition = transform.position;
         rig.bodyType = RigidbodyType2D.Static;
     }
 
@@ -31,16 +34,16 @@ public class Bird : MonoBehaviour
         }
     }
 
+    public void StartGame()
+    {
+        rig.bodyType = RigidbodyType2D.Dynamic;
+        Jump();
+    }
+
     //Aparece a tela, mas o jogo ainda não começou
     void StartUpdate()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            // status = BirdStatus.Play;
-            GameManager.instance.StartGame();
-            rig.bodyType = RigidbodyType2D.Dynamic;
-            Jump();
-        }
+       
     }
 
     //O jogo está rolando
@@ -66,5 +69,11 @@ public class Bird : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameManager.instance.GameOver();
+    }
+
+    public void Restart()
+    {
+        transform.position = startPosition;
+        rig.bodyType = RigidbodyType2D.Static;
     }
 }
